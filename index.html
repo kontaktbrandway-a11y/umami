@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umami Digital — Marketing, który przynosi wyniki.</title>
+  <meta name="description" content="Zintegrowana agencja marketingu premium dla firm MŚP o ambicjach wzrostu. SEO, Strategia, Brand, PPC, DEV – pod jednym dachem. Bez ładnych prognoz. Twarde dane." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP + Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js" defer></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            snow: '#F7F7F7',
+            emerald: { DEFAULT: '#185136', dark: '#0f3524' },
+            powder: '#B6C5D9',
+            crimson: '#FF4800',
+            acid: '#C8FF00',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+          },
+          fontSize: {
+            '10xl': ['10rem', { lineHeight: '0.9' }],
+            '11xl': ['12rem', { lineHeight: '0.88' }],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ─── Base Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background-color: #F7F7F7;
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── Custom Cursor ─── */
+    #cursor {
+      width: 10px; height: 10px;
+      background: #FF4800;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: multiply;
+    }
+    #cursor-follower {
+      width: 36px; height: 36px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform .12s ease, width .2s, height .2s, border-color .2s;
+    }
+    body:hover #cursor { opacity: 1; }
+
+    /* ─── Grid Lines (background scaffold) ─── */
+    .grid-scaffold {
+      background-image:
+        linear-gradient(to right, rgba(0,0,0,0.055) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.055) 1px, transparent 1px);
+      background-size: calc(100% / 12) 120px;
+    }
+
+    /* ─── Typography ─── */
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .font-sans  { font-family: 'Inter', sans-serif; }
+    .font-mono  { font-family: 'Space Mono', monospace; }
+
+    /* ─── Section numbers ─── */
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: #B6C5D9;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      user-select: none;
+    }
+
+    /* ─── Split text (for GSAP) ─── */
+    .split-word { overflow: hidden; display: inline-block; }
+    .split-char { display: inline-block; }
+
+    /* ─── Horizontal rule ─── */
+    .rule { height: 1px; background: #000; transform-origin: left; }
+    .rule-light { height: 1px; background: rgba(0,0,0,0.12); }
+
+    /* ─── CTA Buttons ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 32px;
+      background: #185136;
+      color: #F7F7F7;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid #185136;
+      transition: background .25s, color .25s, border-color .25s, transform .18s;
+    }
+    .btn-primary:hover {
+      background: #000;
+      border-color: #000;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 28px;
+      background: transparent;
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid #000;
+      transition: background .25s, color .25s, transform .18s;
+    }
+    .btn-secondary:hover {
+      background: #000;
+      color: #F7F7F7;
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 0;
+      background: transparent;
+      color: #F7F7F7;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(247,247,247,0.4);
+      transition: border-color .25s, gap .2s;
+    }
+    .btn-ghost:hover { border-color: #F7F7F7; gap: 16px; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      mix-blend-mode: normal;
+      transition: background .35s, padding .35s, border-color .35s;
+    }
+    nav.scrolled {
+      background: rgba(247,247,247,0.95);
+      backdrop-filter: blur(12px);
+      padding: 16px 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #000;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #185136; }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ─── Pulse dot ─── */
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.6; }
+    }
+    .dot-pulse { animation: pulse-dot 2.4s ease-in-out infinite; }
+
+    /* ─── Scroll indicator ─── */
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .scroll-bounce { animation: scroll-bounce 1.8s ease-in-out infinite; }
+
+    /* ─── Offer cards ─── */
+    .offer-card {
+      border: 1px solid rgba(0,0,0,0.12);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, background .3s;
+      cursor: none;
+    }
+    .offer-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: #185136;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .offer-card:hover::before { transform: scaleX(1); }
+    .offer-card:hover { border-color: #185136; background: rgba(24,81,54,0.03); }
+    .offer-card .card-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #B6C5D9;
+      margin-bottom: 24px;
+    }
+    .offer-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .offer-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+    }
+    .offer-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .offer-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: rgba(0,0,0,0.5);
+      transition: border-color .2s, color .2s;
+    }
+    .offer-card:hover .offer-tag {
+      border-color: #185136;
+      color: #185136;
+    }
+
+    /* ─── Testimonial video placeholder ─── */
+    .video-wrapper {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #000;
+      overflow: hidden;
+      cursor: none;
+    }
+    .video-wrapper iframe {
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35);
+      transition: background .3s;
+    }
+    .video-wrapper:hover .video-overlay { background: rgba(0,0,0,0.15); }
+    .play-btn {
+      width: 64px; height: 64px;
+      border: 2px solid #F7F7F7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, transform .2s;
+    }
+    .video-wrapper:hover .play-btn {
+      background: #FF4800;
+      border-color: #FF4800;
+      transform: scale(1.1);
+    }
+
+    /* ─── Counter ─── */
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(64px, 8vw, 120px);
+      font-weight: 700;
+      line-height: 1;
+      color: #F7F7F7;
+    }
+
+    /* ─── Contact form ─── */
+    .form-field {
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #000;
+      outline: none;
+      transition: border-color .25s;
+    }
+    .form-field:focus { border-bottom-color: #185136; }
+    .form-field::placeholder { color: rgba(0,0,0,0.35); letter-spacing: 0.04em; }
+    .form-label {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.45);
+      margin-bottom: 4px;
+    }
+
+    /* ─── Reveal utility ─── */
+    .reveal { opacity: 0; transform: translateY(40px); }
+    .reveal-left { opacity: 0; transform: translateX(-60px); }
+    .reveal-right { opacity: 0; transform: translateX(60px); }
+
+    /* ─── Logo grid ─── */
+    .client-logo {
+      filter: grayscale(1) opacity(0.45);
+      transition: filter .3s, opacity .3s;
+      height: 28px;
+      object-fit: contain;
+    }
+    .client-logo:hover { filter: grayscale(0) opacity(1); }
+
+    /* ─── Emerald section ─── */
+    .bg-emerald-section { background-color: #185136; }
+
+    /* ─── Clip-path reveal ─── */
+    .clip-hidden { clip-path: inset(0 100% 0 0); }
+
+    /* ─── Mobile nav toggle ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      body { cursor: auto; }
+      #cursor, #cursor-follower { display: none; }
+    }
+
+    /* ─── Accent line ─── */
+    .accent-v {
+      width: 1px;
+      background: rgba(0,0,0,0.15);
+    }
+    .accent-v-emerald {
+      width: 1px;
+      background: rgba(247,247,247,0.2);
+    }
+
+    /* ─── Why card ─── */
+    .why-card {
+      padding: 36px 32px;
+      border: 1px solid rgba(247,247,247,0.12);
+      transition: border-color .3s, background .3s;
+    }
+    .why-card:hover {
+      border-color: #C8FF00;
+      background: rgba(200,255,0,0.03);
+    }
+    .why-card .why-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .why-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: #F7F7F7;
+      margin-bottom: 12px;
+    }
+    .why-card p {
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(247,247,247,0.55);
+    }
+  </style>
+</head>
+
+<body class="grid-scaffold">
+
+  <!-- ─── Custom Cursor ─── -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">Umami<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">O nas</a>
+      <a href="#offer">Oferta</a>
+      <a href="#testimonials">Opinie</a>
+      <a href="#mission">Misja</a>
+      <a href="#contact" class="btn-primary" style="padding: 10px 20px; font-size: 11px;">Napisz do nas →</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       01 HERO
+  ═══════════════════════════════════════════ -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-between pt-24 pb-12 px-12 md:px-16 overflow-hidden" style="background: #F7F7F7;">
+
+    <!-- Grid scaffold vertical lines -->
+    <div class="absolute inset-0 pointer-events-none" style="
+      background-image: linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px);
+      background-size: calc(100% / 12) 100%;
+    "></div>
+
+    <!-- Section number -->
+    <div class="absolute left-5 top-1/2 -translate-y-1/2">
+      <span class="section-num">01 — HERO</span>
+    </div>
+
+    <!-- Pulse dot accent -->
+    <div class="absolute right-12 top-1/3 md:right-20 md:top-[38%]">
+      <div class="w-3 h-3 rounded-full dot-pulse" style="background:#FF4800;"></div>
+    </div>
+
+    <!-- Acid green bar (top decorative) -->
+    <div class="absolute top-0 right-0 w-1 h-24 md:h-40" style="background: #C8FF00;"></div>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col justify-center mt-8">
+
+      <!-- Eyebrow -->
+      <div id="hero-eyebrow" class="flex items-center gap-4 mb-8 md:mb-10 opacity-0">
+        <div class="w-8 h-px bg-black"></div>
+        <span class="font-mono text-xs tracking-widest text-gray-400 uppercase">Zintegrowana agencja marketingu premium</span>
+      </div>
+
+      <!-- H1 — split by line for animation -->
+      <h1 class="font-serif font-semibold leading-none mb-0 overflow-hidden" style="font-size: clamp(72px, 11vw, 160px); letter-spacing: -0.02em; max-width: 14ch;">
+        <div class="split-word" id="h1-line1" style="overflow:hidden; display:block;">
+          <span style="display:inline-block;">Marketing,</span>
+        </div>
+        <div class="split-word" id="h1-line2" style="overflow:hidden; display:block;">
+          <span style="display:inline-block;">który</span>
+        </div>
+        <div class="split-word" id="h1-line3" style="overflow:hidden; display:block; color: #185136;">
+          <span style="display:inline-block;">przynosi wyniki.</span>
+        </div>
+      </h1>
+
+      <!-- Tagline block -->
+      <div class="mt-12 md:mt-14 grid md:grid-cols-2 gap-8 max-w-5xl">
+        <div></div>
+        <div id="hero-tagline">
+          <div class="rule mb-8" id="hero-rule" style="transform: scaleX(0); transform-origin: left;"></div>
+          <p class="tagline-line font-sans text-base md:text-lg leading-relaxed mb-3 opacity-0" style="color: rgba(0,0,0,0.55);">
+            Nie ładne raporty. Twarde dane.
+          </p>
+          <p class="tagline-line font-sans text-base md:text-lg leading-relaxed mb-3 opacity-0" style="color: rgba(0,0,0,0.55);">
+            Nie prognozy. Odpowiedzialność za wynik.
+          </p>
+          <p class="tagline-line font-sans text-base md:text-lg leading-relaxed opacity-0" style="color: rgba(0,0,0,0.55);">
+            SEO · Strategia · Brand · PPC · DEV&nbsp;—&nbsp;pod jednym dachem.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div id="hero-bottom" class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mt-16 opacity-0">
+      <div class="flex items-center gap-6">
+        <a href="#contact" class="btn-primary">
+          Zbuduj z nami strategię
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#offer" class="btn-secondary">Zobacz ofertę</a>
+      </div>
+      <div class="flex items-center gap-3 scroll-bounce">
+        <span class="font-mono text-xs tracking-widest opacity-40 uppercase">Scroll</span>
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" class="opacity-40">
+          <rect x="1" y="1" width="14" height="22" rx="7" stroke="#000" stroke-width="1.2"/>
+          <circle cx="8" cy="7" r="2" fill="#000"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       02 O NAS
+  ═══════════════════════════════════════════ -->
+  <section id="about" class="relative py-32 px-12 md:px-16" style="background: #F7F7F7;">
+    <div class="absolute left-5 top-1/2 -translate-y-1/2">
+      <span class="section-num">02 — O NAS</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+      <!-- Section label -->
+      <div class="flex items-center gap-4 mb-16 reveal">
+        <div class="w-8 h-px bg-black"></div>
+        <span class="font-mono text-xs tracking-widest text-gray-400 uppercase">Nasz manifest</span>
+      </div>
+
+      <!-- Asymmetric grid: image | text -->
+      <div class="grid md:grid-cols-12 gap-0 items-stretch min-h-[520px]">
+
+        <!-- Image column (7 cols) -->
+        <div class="md:col-span-7 relative overflow-hidden reveal-left" style="min-height: 420px;">
+          <div class="absolute inset-0 bg-gray-200" style="background: linear-gradient(135deg, #185136 0%, #0f3524 60%, #071a10 100%);">
+            <!-- Placeholder for team photo -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-12">
+              <div class="w-full h-px bg-white opacity-20 mb-8"></div>
+              <blockquote class="font-serif text-3xl md:text-4xl font-light text-white text-center leading-snug italic opacity-90">
+                "Dobry marketing nie powinien być przywilejem wielkich firm.<br />
+                My likwidujemy tę przepaść."
+              </blockquote>
+              <div class="w-full h-px bg-white opacity-20 mt-8"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical divider -->
+        <div class="hidden md:block md:col-span-1 accent-v mx-8"></div>
+
+        <!-- Text column (4 cols) -->
+        <div class="md:col-span-4 flex flex-col justify-between py-4 pl-0 md:pl-4 reveal-right">
+          <div>
+            <h2 class="font-serif font-semibold mb-8 leading-tight" style="font-size: clamp(36px, 4vw, 56px);">
+              Pracujemy z firmami,<br />które nie mają czasu<br />na <em style="color:#185136;">ładne prognozy.</em>
+            </h2>
+            <p class="font-sans text-sm leading-loose mb-6" style="color: rgba(0,0,0,0.6);">
+              Jesteśmy zintegrowaną agencją marketingu klasy korporacji — dostępną dla MŚP z ambicjami wzrostu w przedziale 10–100 mln PLN obrotów. Żadnych silosów, żadnych raportów bez wniosków, żadnego przepychania odpowiedzialności.
+            </p>
+            <p class="font-sans text-sm leading-loose" style="color: rgba(0,0,0,0.6);">
+              Synergizujemy SEO, strategię marki, paid media i technologię pod jednym dachem. AI jako mnożnik operacyjny — automatyzujemy powtarzalne zadania, żeby Twój budżet pracował na wynik, nie na overhead.
+            </p>
+          </div>
+          <div class="mt-10">
+            <div class="rule-light mb-8"></div>
+            <div class="grid grid-cols-2 gap-8">
+              <div>
+                <div class="font-serif font-bold mb-1" style="font-size: 48px; line-height: 1; color: #185136;">8+</div>
+                <div class="font-mono text-xs tracking-wider opacity-50 uppercase">Lat na rynku</div>
+              </div>
+              <div>
+                <div class="font-serif font-bold mb-1" style="font-size: 48px; line-height: 1; color: #185136;">120+</div>
+                <div class="font-mono text-xs tracking-wider opacity-50 uppercase">Projektów</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       03 KLIENCI / LOGOTYPY
+  ═══════════════════════════════════════════ -->
+  <section id="clients" class="py-20 px-12 md:px-16 border-t border-b" style="border-color: rgba(0,0,0,0.08);">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-4 mb-12 reveal">
+        <div class="w-8 h-px bg-black"></div>
+        <span class="font-mono text-xs tracking-widest text-gray-400 uppercase">Zaufali nam</span>
+      </div>
+
+      <!-- Logo row — single, static row -->
+      <div class="flex items-center justify-between gap-8 md:gap-12 flex-wrap">
+        <!-- Placeholder logos as SVG text — replace with actual <img> tags -->
+        <div class="client-logo-text reveal">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA A</text>
+          </svg>
+        </div>
+        <div class="client-logo-text reveal" style="transition-delay: 0.05s">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA B</text>
+          </svg>
+        </div>
+        <div class="client-logo-text reveal" style="transition-delay: 0.1s">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA C</text>
+          </svg>
+        </div>
+        <div class="client-logo-text reveal" style="transition-delay: 0.15s">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA D</text>
+          </svg>
+        </div>
+        <div class="client-logo-text reveal" style="transition-delay: 0.2s">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA E</text>
+          </svg>
+        </div>
+        <div class="client-logo-text reveal" style="transition-delay: 0.25s">
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none">
+            <text x="4" y="20" font-family="Inter" font-size="13" font-weight="600" fill="#000" opacity="0.45" letter-spacing="2">MARKA F</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       04 OFERTA
+  ═══════════════════════════════════════════ -->
+  <section id="offer" class="py-32 px-12 md:px-16" style="background: #F7F7F7;">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid md:grid-cols-2 items-end gap-4 mb-20">
+        <div class="reveal">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-8 h-px bg-black"></div>
+            <span class="font-mono text-xs tracking-widest text-gray-400 uppercase">Co robimy</span>
+          </div>
+          <h2 class="font-serif font-semibold leading-tight" style="font-size: clamp(40px, 5vw, 72px);">
+            Cztery filary.<br />Jeden wynik.
+          </h2>
+        </div>
+        <div class="reveal">
+          <p class="font-sans text-sm leading-loose md:text-right" style="color: rgba(0,0,0,0.5);">
+            Każdy filar działa w synergii z pozostałymi.<br />
+            Nie kupujesz usługi. Kupujesz system.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-card asymmetric grid -->
+      <div class="grid md:grid-cols-12 gap-px" style="background: rgba(0,0,0,0.08);">
+
+        <!-- SEO — col 5 -->
+        <div class="md:col-span-5 offer-card reveal" style="background:#F7F7F7;">
+          <div class="card-num">01 / SEO</div>
+          <h3>Widoczność,<br />która zostaje.</h3>
+          <p>Audyt techniczny, architektura informacji, content strategia, link building — wszystko z jednej ręki. Mierzymy przychód, nie pozycje.</p>
+          <div class="offer-tags">
+            <span class="offer-tag">Technical SEO</span>
+            <span class="offer-tag">Content</span>
+            <span class="offer-tag">Link Building</span>
+            <span class="offer-tag">Core Web Vitals</span>
+          </div>
+        </div>
+
+        <!-- BRAND — col 7 -->
+        <div class="md:col-span-7 offer-card reveal" style="background:#F7F7F7; transition-delay: 0.05s">
+          <div class="card-num">02 / BRAND</div>
+          <h3>Marka,<br />która przekonuje.</h3>
+          <p>Strategia marki, identyfikacja wizualna, tone of voice, kampanie brandowe. Budownictwo marki oparte na danych, nie intuicji.</p>
+          <div class="offer-tags">
+            <span class="offer-tag">Strategia Marki</span>
+            <span class="offer-tag">Identyfikacja</span>
+            <span class="offer-tag">Content Video</span>
+            <span class="offer-tag">Social Media</span>
+          </div>
+        </div>
+
+        <!-- PPC — col 7 -->
+        <div class="md:col-span-7 offer-card reveal" style="background:#F7F7F7; transition-delay: 0.1s">
+          <div class="card-num">03 / PPC</div>
+          <h3>Budżet,<br />który pracuje.</h3>
+          <p>Google Ads, Meta Ads, LinkedIn, programmatic. Optymalizacja ROAS w oparciu o model atrybucji, nie raport GA4 z poprzedniego miesiąca.</p>
+          <div class="offer-tags">
+            <span class="offer-tag">Google Ads</span>
+            <span class="offer-tag">Meta Ads</span>
+            <span class="offer-tag">Programmatic</span>
+            <span class="offer-tag">Attribution</span>
+          </div>
+        </div>
+
+        <!-- DEV — col 5 -->
+        <div class="md:col-span-5 offer-card reveal" style="background:#185136; color: #F7F7F7; transition-delay: 0.15s">
+          <div class="card-num" style="color: rgba(200,255,0,0.6);">04 / DEV</div>
+          <h3 style="color: #F7F7F7;">Technologia,<br />która konwertuje.</h3>
+          <p style="color: rgba(247,247,247,0.6);">Strony, sklepy, landing page, marketing automation, integracje AI. Nie budujemy ładnych stron. Budujemy maszyny sprzedażowe.</p>
+          <div class="offer-tags">
+            <span class="offer-tag" style="border-color: rgba(200,255,0,0.3); color: rgba(200,255,0,0.7);">Web Dev</span>
+            <span class="offer-tag" style="border-color: rgba(200,255,0,0.3); color: rgba(200,255,0,0.7);">CRO</span>
+            <span class="offer-tag" style="border-color: rgba(200,255,0,0.3); color: rgba(200,255,0,0.7);">Automation</span>
+            <span class="offer-tag" style="border-color: rgba(200,255,0,0.3); color: rgba(200,255,0,0.7);">AI Integrations</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA under offer -->
+      <div class="mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal">
+        <p class="font-serif font-light italic text-xl md:text-2xl" style="color: rgba(0,0,0,0.55); max-width: 32ch;">
+          "Wielkość marki nie zależy od wielkości budżetu."
+        </p>
+        <a href="#contact" class="btn-primary" style="white-space: nowrap;">
+          Porozmawiajmy o Twojej firmie
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       05 TESTIMONIALE
+  ═══════════════════════════════════════════ -->
+  <section id="testimonials" class="py-32 px-12 md:px-16" style="background: #000;">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="flex items-center gap-4 mb-20 reveal">
+        <div class="w-8 h-px bg-white opacity-40"></div>
+        <span class="font-mono text-xs tracking-widest uppercase" style="color: rgba(247,247,247,0.35);">Co mówią klienci</span>
+      </div>
+
+      <!-- Video pair -->
+      <div class="grid md:grid-cols-2 gap-px mb-px reveal" style="background: rgba(247,247,247,0.05);">
+        <div class="video-wrapper" style="background: #0a0a0a;">
+          <!-- Replace src with actual video embed URL -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #185136 0%, #0a0a0a 100%);">
+            <div class="play-btn">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#fff"/></svg>
+            </div>
+            <p class="font-mono text-xs tracking-wider mt-4" style="color: rgba(247,247,247,0.4);">Case study — e-commerce</p>
+          </div>
+        </div>
+        <div class="video-wrapper" style="background: #0a0a0a;">
+          <div class="absolute inset-0 flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a2a0a 100%);">
+            <div class="play-btn">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="#fff"/></svg>
+            </div>
+            <p class="font-mono text-xs tracking-wider mt-4" style="color: rgba(247,247,247,0.4);">Case study — B2B SaaS</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text testimonials -->
+      <div class="grid md:grid-cols-3 gap-px" style="background: rgba(247,247,247,0.05);">
+
+        <div class="p-8 md:p-10 reveal" style="background: #0a0a0a;">
+          <div class="flex gap-1 mb-6">
+            <span style="color: #C8FF00; font-size: 14px;">★★★★★</span>
+          </div>
+          <blockquote class="font-serif font-light text-xl md:text-2xl leading-snug mb-8" style="color: rgba(247,247,247,0.85);">
+            "Po 6 miesiącach współpracy ruch organiczny wzrósł o 340%. Umami nie sprzedaje obietnic — dostarcza dane."
+          </blockquote>
+          <div class="rule" style="background: rgba(247,247,247,0.1); margin-bottom: 20px;"></div>
+          <div class="font-mono text-xs tracking-wider" style="color: rgba(247,247,247,0.4);">
+            Anna K. — CEO, sklep modowy (45M PLN obrotów)
+          </div>
+        </div>
+
+        <div class="p-8 md:p-10 reveal" style="background: #0a0a0a; transition-delay: 0.07s">
+          <div class="flex gap-1 mb-6">
+            <span style="color: #C8FF00; font-size: 14px;">★★★★★</span>
+          </div>
+          <blockquote class="font-serif font-light text-xl md:text-2xl leading-snug mb-8" style="color: rgba(247,247,247,0.85);">
+            "Wreszcie agencja, która mówi wprost co nie działa i dlaczego. Koszt pozyskania klienta spadł o 28%."
+          </blockquote>
+          <div class="rule" style="background: rgba(247,247,247,0.1); margin-bottom: 20px;"></div>
+          <div class="font-mono text-xs tracking-wider" style="color: rgba(247,247,247,0.4);">
+            Piotr M. — CMO, firma B2B (80M PLN obrotów)
+          </div>
+        </div>
+
+        <div class="p-8 md:p-10 reveal" style="background: #0a0a0a; transition-delay: 0.14s">
+          <div class="flex gap-1 mb-6">
+            <span style="color: #C8FF00; font-size: 14px;">★★★★★</span>
+          </div>
+          <blockquote class="font-serif font-light text-xl md:text-2xl leading-snug mb-8" style="color: rgba(247,247,247,0.85);">
+            "Rebrand i nowa strona razem z kampanią SEO — wszystko synchronicznie. Pierwszy raz mam poczucie, że agencja gra do jednej bramki."
+          </blockquote>
+          <div class="rule" style="background: rgba(247,247,247,0.1); margin-bottom: 20px;"></div>
+          <div class="font-mono text-xs tracking-wider" style="color: rgba(247,247,247,0.4);">
+            Magdalena W. — właścicielka, firma usługowa (22M PLN obrotów)
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       06 MISJA / DLACZEGO MY
+  ═══════════════════════════════════════════ -->
+  <section id="mission" class="py-32 px-12 md:px-16 bg-emerald-section relative overflow-hidden">
+
+    <!-- Accent line right -->
+    <div class="absolute right-0 top-0 bottom-0 w-1" style="background: #C8FF00; opacity: 0.6;"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+
+      <div class="flex items-center gap-4 mb-20 reveal">
+        <div class="w-8 h-px" style="background: rgba(247,247,247,0.4);"></div>
+        <span class="font-mono text-xs tracking-widest uppercase" style="color: rgba(247,247,247,0.4);">Umami Way</span>
+      </div>
+
+      <!-- Big headline -->
+      <h2 class="font-serif font-semibold leading-none mb-20 reveal" style="font-size: clamp(48px, 7vw, 96px); color: #F7F7F7; max-width: 18ch; letter-spacing: -0.02em;">
+        Trzy zasady, których nie negocjujemy.
+      </h2>
+
+      <!-- Stats row -->
+      <div class="grid md:grid-cols-3 gap-px mb-20" style="background: rgba(247,247,247,0.08);">
+        <div class="p-10 reveal" style="background: #185136;">
+          <div class="stat-num" id="stat-1">0</div>
+          <div class="font-mono text-xs tracking-wider mt-3 mb-4" style="color: rgba(247,247,247,0.45);">PROJEKTÓW DOSTARCZONYCH</div>
+          <div class="h-px w-8" style="background: #C8FF00;"></div>
+        </div>
+        <div class="p-10 reveal" style="background: #185136; transition-delay: 0.07s">
+          <div class="stat-num" id="stat-2">0</div>
+          <div class="font-mono text-xs tracking-wider mt-3 mb-4" style="color: rgba(247,247,247,0.45);">ŚREDNI WZROST RUCHU (%)</div>
+          <div class="h-px w-8" style="background: #C8FF00;"></div>
+        </div>
+        <div class="p-10 reveal" style="background: #185136; transition-delay: 0.14s">
+          <div class="stat-num" id="stat-3">0</div>
+          <div class="font-mono text-xs tracking-wider mt-3 mb-4" style="color: rgba(247,247,247,0.45);">KLIENTÓW AKTYWNYCH</div>
+          <div class="h-px w-8" style="background: #C8FF00;"></div>
+        </div>
+      </div>
+
+      <!-- 3 why cards -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="why-card reveal">
+          <div class="why-icon" style="color: #C8FF00;">⊕</div>
+          <h4>Synergia<br />pod jednym dachem.</h4>
+          <p>SEO, strategia, paid media i technologia nie żyją w silosach. Każde działanie informuje pozostałe. Jeden brief. Jeden punkt odpowiedzialności.</p>
+        </div>
+        <div class="why-card reveal" style="transition-delay: 0.07s">
+          <div class="why-icon" style="color: #C8FF00;">◈</div>
+          <h4>AI jako<br />mnożnik operacyjny.</h4>
+          <p>Automatyzujemy powtarzalne zadania, żeby specjaliści skupiali się na tym, czego AI nie zastąpi — strategicznym myśleniu i kreatywności.</p>
+        </div>
+        <div class="why-card reveal" style="transition-delay: 0.14s">
+          <div class="why-icon" style="color: #C8FF00;">◎</div>
+          <h4>Szczerość<br />bez lukru.</h4>
+          <p>Mówimy, gdy coś nie działa. Bierzemy odpowiedzialność za wynik, nie za wystawioną fakturę. Raporty z wnioskami, nie z danymi dla danych.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       07 KONTAKT
+  ═══════════════════════════════════════════ -->
+  <section id="contact" class="py-32 px-12 md:px-16" style="background: #F7F7F7;">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="flex items-center gap-4 mb-16 reveal">
+        <div class="w-8 h-px bg-black"></div>
+        <span class="font-mono text-xs tracking-widest text-gray-400 uppercase">Kontakt</span>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-16">
+
+        <!-- Left: headline + details -->
+        <div class="md:col-span-5 reveal-left">
+          <h2 class="font-serif font-semibold leading-tight mb-10" style="font-size: clamp(40px, 4.5vw, 64px);">
+            Gotowy na marketing,<br />który <em style="color:#185136;">dowozi?</em>
+          </h2>
+          <p class="font-sans text-sm leading-loose mb-12" style="color: rgba(0,0,0,0.5);">
+            Pierwsze spotkanie jest bezpłatne. Audit Twojej obecnej sytuacji marketingowej + rekomendacje strategiczne — gratis. Płacisz, gdy zdecydujesz się działać.
+          </p>
+          <div class="space-y-6">
+            <div>
+              <div class="font-mono text-xs tracking-widest text-gray-400 uppercase mb-1">Email</div>
+              <a href="mailto:hello@umami.digital" class="font-sans text-sm hover:underline" style="color: #185136;">hello@umami.digital</a>
+            </div>
+            <div>
+              <div class="font-mono text-xs tracking-widest text-gray-400 uppercase mb-1">Telefon</div>
+              <a href="tel:+48000000000" class="font-sans text-sm hover:underline">+48 000 000 000</a>
+            </div>
+            <div>
+              <div class="font-mono text-xs tracking-widest text-gray-400 uppercase mb-1">Adres</div>
+              <p class="font-sans text-sm" style="color: rgba(0,0,0,0.6);">ul. Przykładowa 1/2<br />00-000 Warszawa</p>
+            </div>
+          </div>
+          <!-- Map placeholder -->
+          <div class="mt-10 h-40 w-full" style="background: rgba(24,81,54,0.08); border: 1px solid rgba(24,81,54,0.15); display: flex; align-items: center; justify-content: center;">
+            <span class="font-mono text-xs tracking-wider" style="color: rgba(0,0,0,0.25);">[ MAPA — Google Maps embed ]</span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="hidden md:block md:col-span-1 accent-v"></div>
+
+        <!-- Right: Form -->
+        <div class="md:col-span-6 reveal-right">
+          <form id="contact-form" class="space-y-8" onsubmit="handleFormSubmit(event)">
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <label class="form-label">Imię i nazwisko</label>
+                <input type="text" name="name" class="form-field" placeholder="Jan Kowalski" required />
+              </div>
+              <div>
+                <label class="form-label">Firma</label>
+                <input type="text" name="company" class="form-field" placeholder="Nazwa sp. z o.o." required />
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-field" placeholder="jan@firma.pl" required />
+              </div>
+              <div>
+                <label class="form-label">Telefon</label>
+                <input type="tel" name="phone" class="form-field" placeholder="+48 000 000 000" />
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label">Orientacyjny budżet marketingowy / mies.</label>
+              <select name="budget" class="form-field" style="cursor: pointer;">
+                <option value="">Wybierz zakres</option>
+                <option>do 5 000 PLN</option>
+                <option>5 000 – 15 000 PLN</option>
+                <option>15 000 – 50 000 PLN</option>
+                <option>powyżej 50 000 PLN</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label">Czego szukasz?</label>
+              <textarea name="message" class="form-field" rows="4" placeholder="Opisz cel, wyzwanie lub projekt..."></textarea>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="consent" name="consent" class="mt-1 flex-shrink-0" required style="accent-color: #185136;" />
+              <label for="consent" class="font-sans text-xs leading-relaxed" style="color: rgba(0,0,0,0.45);">
+                Wyrażam zgodę na przetwarzanie danych osobowych w celu odpowiedzi na zapytanie, zgodnie z Polityką Prywatności Umami Digital.
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full md:w-auto" id="submit-btn">
+              Wyślij wiadomość
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+
+            <div id="form-success" class="hidden p-4 text-sm font-mono tracking-wide" style="background: rgba(24,81,54,0.08); border: 1px solid #185136; color: #185136;">
+              ✓ Wiadomość wysłana. Odezwiemy się w ciągu 24h.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       08 STOPKA
+  ═══════════════════════════════════════════ -->
+  <footer class="py-16 px-12 md:px-16 border-t" style="background: #000; border-color: rgba(247,247,247,0.08);">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid md:grid-cols-12 gap-8 mb-16">
+
+        <!-- Brand block -->
+        <div class="md:col-span-4">
+          <a href="#hero" class="font-serif text-2xl font-semibold text-white mb-4 block">
+            Umami<span style="color:#C8FF00;">.</span>
+          </a>
+          <p class="font-sans text-xs leading-loose mb-6" style="color: rgba(247,247,247,0.35); max-width: 26ch;">
+            Zintegrowana agencja marketingu premium. Synergia SEO, Strategii, Brandingu, PPC i Technologii.
+          </p>
+          <div class="flex gap-4">
+            <a href="#" aria-label="LinkedIn" class="w-8 h-8 border flex items-center justify-center transition-colors hover:border-acid" style="border-color: rgba(247,247,247,0.15);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" stroke="#fff" stroke-width="1.5"/><circle cx="4" cy="4" r="2" stroke="#fff" stroke-width="1.5"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="w-8 h-8 border flex items-center justify-center transition-colors hover:border-acid" style="border-color: rgba(247,247,247,0.15);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-8 h-8 border flex items-center justify-center transition-colors hover:border-acid" style="border-color: rgba(247,247,247,0.15);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="#fff" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Nav links -->
+        <div class="md:col-span-2">
+          <div class="font-mono text-xs tracking-widest uppercase mb-6" style="color: rgba(247,247,247,0.25);">Nawigacja</div>
+          <ul class="space-y-3">
+            <li><a href="#about" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">O nas</a></li>
+            <li><a href="#offer" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Oferta</a></li>
+            <li><a href="#testimonials" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Opinie</a></li>
+            <li><a href="#mission" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Misja</a></li>
+            <li><a href="#contact" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="md:col-span-2">
+          <div class="font-mono text-xs tracking-widest uppercase mb-6" style="color: rgba(247,247,247,0.25);">Usługi</div>
+          <ul class="space-y-3">
+            <li><a href="#offer" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">SEO</a></li>
+            <li><a href="#offer" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Brand & Strategia</a></li>
+            <li><a href="#offer" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">PPC & Paid Media</a></li>
+            <li><a href="#offer" class="font-sans text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.45);">Web Development</a></li>
+          </ul>
+        </div>
+
+        <!-- CTA block -->
+        <div class="md:col-span-4 flex flex-col justify-between">
+          <div>
+            <div class="font-mono text-xs tracking-widest uppercase mb-6" style="color: rgba(247,247,247,0.25);">Zacznij</div>
+            <p class="font-serif font-light text-xl md:text-2xl leading-snug mb-6" style="color: rgba(247,247,247,0.7);">
+              Pierwsze spotkanie bezpłatne.<br />Bez zobowiązań.
+            </p>
+            <a href="#contact" class="btn-ghost">
+              Napisz do nas
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="rule" style="background: rgba(247,247,247,0.06); margin-bottom: 24px;"></div>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="font-mono text-xs tracking-wider" style="color: rgba(247,247,247,0.2);">
+          © 2024 Umami Digital Sp. z o.o. — Wszelkie prawa zastrzeżone.
+        </div>
+        <div class="flex gap-6">
+          <a href="#" class="font-mono text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.2);">Polityka prywatności</a>
+          <a href="#" class="font-mono text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.2);">Regulamin</a>
+          <a href="#" class="font-mono text-xs hover:text-white transition-colors" style="color: rgba(247,247,247,0.2);">Cookies</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════ -->
+  <script>
+    // ─── Wait for GSAP to load ───
+    window.addEventListener('load', () => {
+      if (typeof gsap === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ─── Custom cursor ───
+      const cursor = document.getElementById('cursor');
+      const follower = document.getElementById('cursor-follower');
+      let mx = 0, my = 0, fx = 0, fy = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        gsap.to(cursor, { x: mx, y: my, duration: 0.08, ease: 'power1.out' });
+        gsap.to(follower, { x: mx, y: my, duration: 0.22, ease: 'power2.out' });
+      });
+
+      document.querySelectorAll('a, button, .offer-card, .video-wrapper, .why-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          gsap.to(cursor, { width: 20, height: 20, duration: 0.2 });
+          gsap.to(follower, { width: 60, height: 60, borderColor: '#185136', duration: 0.2 });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(cursor, { width: 10, height: 10, duration: 0.2 });
+          gsap.to(follower, { width: 36, height: 36, borderColor: '#000', duration: 0.2 });
+        });
+      });
+
+      // ─── Nav scroll behaviour ───
+      const nav = document.getElementById('main-nav');
+      ScrollTrigger.create({
+        start: 'top -60',
+        onEnter: () => nav.classList.add('scrolled'),
+        onLeaveBack: () => nav.classList.remove('scrolled'),
+      });
+
+      // ─── HERO animation timeline ───
+      const heroTl = gsap.timeline({ delay: 0.1 });
+
+      heroTl
+        .to('#hero-eyebrow', {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
+        })
+        .from('#h1-line1 span', {
+          y: '105%', opacity: 0, duration: 0.9, ease: 'power4.out'
+        }, '-=0.3')
+        .from('#h1-line2 span', {
+          y: '105%', opacity: 0, duration: 0.9, ease: 'power4.out'
+        }, '-=0.7')
+        .from('#h1-line3 span', {
+          y: '105%', opacity: 0, duration: 0.9, ease: 'power4.out'
+        }, '-=0.7')
+        .to('#hero-rule', {
+          scaleX: 1, duration: 0.8, ease: 'power3.inOut'
+        }, '-=0.3')
+        .to('.tagline-line', {
+          opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out'
+        }, '-=0.4')
+        .to('#hero-bottom', {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
+        }, '-=0.2');
+
+      // ─── Scroll reveals (.reveal) ───
+      gsap.utils.toArray('.reveal').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+
+      gsap.utils.toArray('.reveal-left').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, x: -80 },
+          {
+            opacity: 1, x: 0, duration: 1.1, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+
+      gsap.utils.toArray('.reveal-right').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, x: 80 },
+          {
+            opacity: 1, x: 0, duration: 1.1, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+
+      // ─── Counter animation ───
+      function animateCount(id, target, suffix = '') {
+        const el = document.getElementById(id);
+        if (!el) return;
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 80%',
+          once: true,
+          onEnter: () => {
+            gsap.to({ val: 0 }, {
+              val: target,
+              duration: 2,
+              ease: 'power2.out',
+              onUpdate: function() {
+                el.textContent = Math.round(this.targets()[0].val) + suffix;
+              }
+            });
+          }
+        });
+      }
+
+      animateCount('stat-1', 120, '+');
+      animateCount('stat-2', 280, '%');
+      animateCount('stat-3', 47, '');
+
+      // ─── Offer cards stagger on scroll ───
+      gsap.from('.offer-card', {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#offer',
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        }
+      });
+
+      // ─── Why cards stagger ───
+      gsap.from('.why-card', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '#mission',
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        }
+      });
+
+    }); // end window.load
+
+    // ─── Nav scroll state (fallback without GSAP) ───
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('main-nav');
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // ─── Form submit handler ───
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const success = document.getElementById('form-success');
+      btn.textContent = 'Wysyłanie...';
+      btn.disabled = true;
+      // Simulate async send — replace with actual fetch() to backend
+      setTimeout(() => {
+        btn.style.display = 'none';
+        success.classList.remove('hidden');
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
