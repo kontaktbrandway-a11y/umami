@@ -186,14 +186,11 @@
       border-bottom: 1px solid rgba(0,0,0,0.08);
     }
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #000;
       text-decoration: none;
+      opacity: 1;
+      transition: opacity .2s;
     }
-    .nav-logo span { color: #185136; }
+    .nav-logo:hover { opacity: 0.75; }
     .nav-links { display: flex; align-items: center; gap: 40px; }
     .nav-links a {
       font-size: 11px;
@@ -421,7 +418,9 @@
        NAV
   ═══════════════════════════════════════════ -->
   <nav id="main-nav">
-    <a href="#hero" class="nav-logo">Umami<span>.</span></a>
+    <a href="#hero" class="nav-logo" aria-label="Umami Digital">
+      <img src="assets/images/logo.svg" alt="Umami Digital" height="28" style="height: 28px; width: auto; display: block;" />
+    </a>
     <div class="nav-links">
       <a href="#about">O nas</a>
       <a href="#offer">Oferta</a>
@@ -982,8 +981,8 @@
 
         <!-- Brand block -->
         <div class="md:col-span-4">
-          <a href="#hero" class="font-serif text-2xl font-semibold text-white mb-4 block">
-            Umami<span style="color:#C8FF00;">.</span>
+          <a href="#hero" aria-label="Umami Digital" class="mb-4 block">
+            <img src="assets/images/logo.svg" alt="Umami Digital" height="24" style="height: 24px; width: auto; filter: invert(1) brightness(2);" />
           </a>
           <p class="font-sans text-xs leading-loose mb-6" style="color: rgba(247,247,247,0.35); max-width: 26ch;">
             Zintegrowana agencja marketingu premium. Synergia SEO, Strategii, Brandingu, PPC i Technologii.
