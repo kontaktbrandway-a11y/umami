@@ -9,7 +9,7 @@ body {
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: #444444;
   line-height: 1.7;
-  background: #3d3d3d;
+  background: #ffffff;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -46,7 +46,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .logo-title {
-  color: #ffffff;
+  color: #1a1a1a;
   font-weight: 700;
   font-size: 1.7rem;
   letter-spacing: 3px;
@@ -68,14 +68,14 @@ a { text-decoration: none; color: inherit; }
 }
 
 h1 {
-  color: #ffffff;
+  color: #1a1a1a;
   font-size: 1.9rem;
   font-weight: 700;
   margin-bottom: 16px;
 }
 
 .lead {
-  color: #c7c7c7;
+  color: #6a6a6a;
   font-size: 1rem;
   margin-bottom: 40px;
 }
@@ -86,7 +86,7 @@ h1 {
 }
 
 .contact-info p {
-  color: #d5d5d5;
+  color: #444444;
   font-size: 0.95rem;
   margin-bottom: 8px;
 }
@@ -99,7 +99,7 @@ h1 {
 .contact-info span {
   display: inline-block;
   width: 52px;
-  color: #f2c40f;
+  color: #b8952b;
   font-weight: 700;
 }
 
@@ -114,7 +114,7 @@ h1 {
 
 .copyright p {
   font-size: 0.72rem;
-  color: #8d8d8d;
+  color: #999999;
 }
 
 @media (max-width: 480px) {
