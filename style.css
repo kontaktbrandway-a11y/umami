@@ -504,3 +504,166 @@ a { text-decoration: none; }
     font-size: 1.05rem;
   }
 }
+
+/* ---------- Nav active state ---------- */
+.main-nav > ul > li > a.nav-active {
+  color: #f2c40f;
+  position: relative;
+}
+
+.main-nav > ul > li > a.nav-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: #f2c40f;
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb-bar {
+  background: #333333;
+  padding: 14px 0;
+}
+
+.breadcrumb-bar .container {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.breadcrumb-bar a {
+  color: #b8b8b8;
+}
+
+.breadcrumb-bar a:hover {
+  color: #f2c40f;
+}
+
+.breadcrumb-bar .sep {
+  color: #6a6a6a;
+  margin: 0 8px;
+}
+
+.breadcrumb-bar .current {
+  color: #f2c40f;
+  font-weight: 600;
+}
+
+/* ---------- Oferta subpage ---------- */
+.oferta-page {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 50px;
+  padding: 70px 20px;
+  align-items: start;
+}
+
+.oferta-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.widget {
+  background: #f7f6f3;
+  padding: 28px;
+}
+
+.widget h2 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.widget ul {
+  list-style: none;
+}
+
+.widget li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #e6e4de;
+}
+
+.widget li:last-child {
+  border-bottom: none;
+}
+
+.widget a,
+.widget span {
+  display: block;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: #55545a;
+}
+
+.widget li::before {
+  content: "\203A";
+  color: #f2c40f;
+  font-weight: 700;
+}
+
+.widget-menu li.active a {
+  color: #d99a12;
+  font-weight: 700;
+}
+
+.widget a:hover {
+  color: #d99a12;
+}
+
+.oferta-content h1 {
+  font-size: 1.7rem;
+  margin-bottom: 18px;
+}
+
+.oferta-content .lead {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #2f2f2f;
+  margin-bottom: 20px;
+}
+
+.oferta-content p {
+  font-size: 0.92rem;
+  text-align: justify;
+  margin-bottom: 18px;
+  color: #55545a;
+}
+
+.oferta-image img {
+  width: 100%;
+  border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+  .oferta-page {
+    grid-template-columns: 1fr;
+  }
+
+  .oferta-content {
+    order: 1;
+  }
+
+  .oferta-image {
+    order: 2;
+  }
+
+  .oferta-sidebar {
+    order: 3;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .oferta-sidebar .widget {
+    flex: 1 1 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .oferta-sidebar {
+    flex-direction: column;
+  }
+}
