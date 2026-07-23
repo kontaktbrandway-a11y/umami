@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaźmieruk Budownictwo — Firma budowlana z Poznania</title>
 <meta name="description" content="Firma budowlana Kaźmieruk z Poznania – nadzór budowlany, budowa domów pod klucz, prace wykończeniowe, architektura, dekoracja wnętrz, domy na sprzedaż.">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="images/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -99,6 +103,11 @@
   </div>
 </section>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Zamknij">&times;</button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <footer class="site-footer" id="kontakt">
   <div class="container footer-inner">
     <h2>Kontakt</h2>
@@ -155,6 +164,28 @@
         link.parentElement.classList.toggle('submenu-open');
       }
     });
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
+  });
+
+  const closeLightbox = () => lightbox.classList.remove('open');
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
   });
 </script>
 
