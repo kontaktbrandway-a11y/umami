@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAK — zakończenie działalności</title>
+  <meta name="description" content="Z dniem 04.08 JAK zakończył swoją działalność. Zapraszamy do dwóch marek tworzonych przez założycielki: Kobiety na Obcasy oraz HAGA." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: #ffffff;
+      color: #111111;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      text-align: center;
+    }
+
+    .logo-jak {
+      height: 84px;
+      width: auto;
+      margin: 0 auto 56px;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: clamp(14px, 1.6vw, 17px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: rgba(17, 17, 17, 0.7);
+      margin-bottom: 72px;
+    }
+
+    .brands {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 64px;
+      margin-bottom: 72px;
+    }
+
+    .brand {
+      flex: 1;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand-heading {
+      font-size: clamp(20px, 2.6vw, 28px);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      margin-bottom: 28px;
+    }
+
+    .logo-haga {
+      height: 40px;
+      width: auto;
+      margin-bottom: 28px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .brand-desc {
+      font-size: 13px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: rgba(17, 17, 17, 0.65);
+      margin-bottom: 20px;
+    }
+
+    .brand-handle {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #111111;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+
+    .brand-handle:hover {
+      border-color: #111111;
+      opacity: 0.75;
+    }
+
+    .divider {
+      width: 1px;
+      background: rgba(17, 17, 17, 0.15);
+      flex-shrink: 0;
+    }
+
+    footer {
+      font-size: clamp(13px, 1.4vw, 15px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.8;
+      color: rgba(17, 17, 17, 0.65);
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 48px 20px; }
+
+      .logo-jak { height: 60px; margin-bottom: 40px; }
+
+      .subtitle { margin-bottom: 48px; }
+
+      .brands {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 48px;
+      }
+
+      .brand { max-width: 100%; }
+
+      .divider {
+        width: 60px;
+        height: 1px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <img class="logo-jak" src="../assets/images/logo-jak.png" alt="JAK" />
+
+    <h1>Z dniem 04.08 JAK zakończył swoją działalność.</h1>
+    <p class="subtitle">Zapraszamy do dwóch marek tworzonych przez założycielki.</p>
+
+    <div class="brands">
+
+      <div class="brand">
+        <h2 class="brand-heading">Kobiety na Obcasy</h2>
+        <p class="brand-name">Justyna Marek</p>
+        <p class="brand-desc">Warsztaty kobiecości w ruchu</p>
+        <a class="brand-handle" href="https://www.instagram.com/kobiety.na.obcasy?igsh=MTk5a25mMTd4Z3V2OA==" target="_blank" rel="noopener">@kobiety.na.obcasy</a>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="brand">
+        <img class="logo-haga" src="../assets/images/logo-haga.png" alt="HAGA" />
+        <p class="brand-name">Agnieszka Hetman</p>
+        <p class="brand-desc">Marka odzieżowa</p>
+        <a class="brand-handle" href="https://www.instagram.com/agnieszkahetman_haga?igsh=MWZhZHcxdDVmNDdueQ==" target="_blank" rel="noopener">@agnieszkahetman_haga</a>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>Dziękujemy za zaufanie i obecność.</p>
+      <p>Do zobaczenia w nowych miejscach.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
